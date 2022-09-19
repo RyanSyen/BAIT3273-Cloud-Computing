@@ -16,7 +16,13 @@
 
     <title>HR Management Software</title>
 
-
+    <style>
+        .table {
+            max-width: 1000px;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+        }
+    </style>
 
 </head>
 
@@ -36,7 +42,7 @@
                     <div class="left"></div>
                     <div class="right"></div>
                 </div>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('admin.index') }}">
                         <i class="fa-solid fa-house"></i>
                         &nbsp;
@@ -75,6 +81,12 @@
                         <i class="fa-solid fa-user"></i>
                         &nbsp;
                         Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        &nbsp;
+                        Logout</a>
                 </li>
             </ul>
         </div>

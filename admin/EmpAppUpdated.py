@@ -49,6 +49,32 @@ employees = []
 def getEmp():
 
     try:
+        employees = []
+        # Define a SQL SELECT Query
+        select_sql = "SELECT * FROM employee"
+        # Get Cursor Object from Connection
+        cursor = db_conn.cursor()
+        # Execute the SELECT query using execute() method
+        cursor.execute(select_sql)
+        print("executed")
+        # Extract all rows from a result
+
+        for row in cursor.fetchall():
+            employees.append({"emp_id": row[0], "first_name": row[1],
+                             "last_name": row[2], "pri_skill": row[3], "location": row[4]})
+            # print(records)
+            #print("Total number of rows in table: ", cursor.rowcount)
+
+    # except mysql.connector.Error as e:
+    except:
+        print("Error reading data from MySQL table")
+    return render_template('home.html', employees=employees, url=url)
+
+
+def getEmp1():
+
+    try:
+        employees = []
         # Define a SQL SELECT Query
         select_sql = "SELECT * FROM employee"
         # Get Cursor Object from Connection
@@ -66,10 +92,72 @@ def getEmp():
     # except mysql.connector.Error as e:
     except:
         print("Error reading data from MySQL table")
-    return render_template('home.html', employees=employees, url=url)
+    return render_template('updateEmp.html', employees=employees, url=url)
+
+
+def getEmp2():
+
+    try:
+        employees = []
+        print(employees)
+        # Define a SQL SELECT Query
+        select_sql = "SELECT * FROM employee"
+        # Get Cursor Object from Connection
+        cursor = db_conn.cursor()
+        # Execute the SELECT query using execute() method
+        cursor.execute(select_sql)
+        # Extract all rows from a result
+
+        for row in cursor.fetchall():
+            employees.append({"emp_id": row[0], "first_name": row[1],
+                             "last_name": row[2], "pri_skill": row[3], "location": row[4]})
+            # print(records)
+            #print("Total number of rows in table: ", cursor.rowcount)
+        print(employees)
+    # except mysql.connector.Error as e:
+    except:
+        print("Error reading data from MySQL table")
+    return render_template('deleteEmp.html', employees=employees, url=url)
+
+
+def deleteEmployee(number):
+    try:
+        employees = []
+        # Define a SQL SELECT Query
+        select_sql = "SELECT * FROM employee"
+        # delete_sql = "DELETE FROM employee WHERE emp_id = %d", (number)
+        delete_sql = "DELETE FROM employee WHERE emp_id = %s"
+        test = "DELETE FROM employee WHERE emp_id = 1001"
+        # print(delete_sql)
+        # Get Cursor Object from Connection
+        cursor1 = db_conn.cursor()
+        #cursor1 = db_conn.cursor()
+        # Execute the DELETE query using execute() method
+        cursor1.execute(delete_sql, (number,))
+        print("deleted")
+        # Commit changes in db
+        db_conn.commit()
+        # Extract all rows from a result
+        # print("values = " + cursor.fetchall())
+        # rows = cursor.fetchall()
+        # for row in cursor.fetchall():
+        #     employees.append({"emp_id": row[0], "first_name": row[1],
+        #                      "last_name": row[2], "pri_skill": row[3], "location": row[4]})
+        # print(records)
+        #print("Total number of rows in table: ", cursor.rowcount)
+
+    # except mysql.connector.Error as e:
+    except:
+        # Roll back in case there is any error
+        db_conn.rollback()
+        print("Error deleting data from MySQL table")
+    # return render_template('deleteEmp.html', employees=employees, url=url)
+    return getEmp2()
 
 
 # route to home
+
+
 @adminBlueprint.route('/home', methods=['GET', 'POST'])
 def index():
     return getEmp()
@@ -158,12 +246,21 @@ def account():
 
 @adminBlueprint.route("/updateEmp")
 def updateEmp():
-    return render_template('updateEmp.html')
+    return getEmp1()
+    # return render_template('updateEmp.html')
 
 
 @adminBlueprint.route("/deleteEmp")
 def deleteEmp():
-    return render_template('deleteEmp.html')
+    return getEmp2()
+    # return render_template('deleteEmp.html')
 
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=80, debug=True)
+
+
+@adminBlueprint.route("/deleteEmp/<number>")
+def delEmp(number):
+    return deleteEmployee(number)
+    # print("empid = " + number)
+    # return render_template('deleteEmp.html', employees=employees, url=url)

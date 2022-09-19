@@ -16,7 +16,13 @@
 
     <title>HR Management Software</title>
 
-
+    <style>
+        .table {
+            max-width: 1000px;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,7 +41,7 @@
                     <div class="left"></div>
                     <div class="right"></div>
                 </div>
-                <li class="nav-item active">
+                <li class="nav-item ">
                     <a class="nav-link" href="{{ url_for('admin.index') }}">
                         <i class="fa-solid fa-house"></i>
                         &nbsp;
@@ -75,10 +81,45 @@
                         &nbsp;
                         Account</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        &nbsp;
+                        Logout</a>
+                </li>
             </ul>
         </div>
     </nav>
     <h1 style="text-align: center; margin: 10px 0; font-weight: bold;">Delete employee record</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">emp_id</th>
+                <th scope="col">first_name</th>
+                <th scope="col">last_name</th>
+                <th scope="col">pri_skill</th>
+                <th scope="col">location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp.emp_id }}</th>
+                <td>{{ emp.first_name }}</td>
+                <td>{{ emp.last_name }}</td>
+                <td>{{ emp.pri_skill }}</td>
+                <td>{{ emp.location }}</td>
+                <td>
+                    <a href="/admin/deleteEmp/{{ emp.emp_id }}">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
