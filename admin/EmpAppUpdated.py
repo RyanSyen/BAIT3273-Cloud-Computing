@@ -34,7 +34,8 @@ output = {}
 table = 'employee'
 
 # trying to get s3 image url
-s3 = boto3.client('s3')
+s3 = boto3.client('s3', aws_access_key_id='AKIAWRDUM7XHSFQBP7F7',
+                  aws_secret_access_key='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')
 url = s3.generate_presigned_url('get_object',
                                 Params={
                                     'Bucket': 'ryanwongyisyen-bucket',
