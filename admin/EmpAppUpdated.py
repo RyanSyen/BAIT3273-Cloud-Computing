@@ -277,7 +277,7 @@ def updateSubmitEmp():
         cursor.close()
 
     print("all modification done...")
-    return render_template('home.html')
+    return getEmp()
 
 
 @adminBlueprint.route("/deleteEmp")
