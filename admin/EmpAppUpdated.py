@@ -34,8 +34,7 @@ output = {}
 table = 'employee'
 
 # trying to get s3 image url
-s3 = boto3.client('s3', aws_access_key_id='AKIAWRDUM7XHSFQBP7F7',
-                  aws_secret_access_key='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')
+s3 = boto3.client('s3')
 url = s3.generate_presigned_url('get_object',
                                 Params={
                                     'Bucket': 'ryanwongyisyen-bucket',
@@ -63,8 +62,6 @@ def getEmp():
         for row in cursor.fetchall():
             employees.append({"emp_id": row[0], "first_name": row[1],
                              "last_name": row[2], "pri_skill": row[3], "location": row[4]})
-            # print(records)
-            #print("Total number of rows in table: ", cursor.rowcount)
 
     # except mysql.connector.Error as e:
     except:
@@ -87,8 +84,6 @@ def getEmp1():
         for row in cursor.fetchall():
             employees.append({"emp_id": row[0], "first_name": row[1],
                              "last_name": row[2], "pri_skill": row[3], "location": row[4]})
-            # print(records)
-            #print("Total number of rows in table: ", cursor.rowcount)
 
     # except mysql.connector.Error as e:
     except:
@@ -108,12 +103,9 @@ def getEmp2():
         # Execute the SELECT query using execute() method
         cursor.execute(select_sql)
         # Extract all rows from a result
-
         for row in cursor.fetchall():
             employees.append({"emp_id": row[0], "first_name": row[1],
                              "last_name": row[2], "pri_skill": row[3], "location": row[4]})
-            # print(records)
-            #print("Total number of rows in table: ", cursor.rowcount)
         print(employees)
     # except mysql.connector.Error as e:
     except:
@@ -124,45 +116,28 @@ def getEmp2():
 def deleteEmployee(number):
     try:
         employees = []
-        # Define a SQL SELECT Query
-        select_sql = "SELECT * FROM employee"
-        # delete_sql = "DELETE FROM employee WHERE emp_id = %d", (number)
+        # Define a SQL DELETE Query
         delete_sql = "DELETE FROM employee WHERE emp_id = %s"
-        test = "DELETE FROM employee WHERE emp_id = 1001"
-        # print(delete_sql)
         # Get Cursor Object from Connection
         cursor1 = db_conn.cursor()
-        #cursor1 = db_conn.cursor()
         # Execute the DELETE query using execute() method
         cursor1.execute(delete_sql, (number,))
         print("deleted")
         # Commit changes in db
         db_conn.commit()
-        # Extract all rows from a result
-        # print("values = " + cursor.fetchall())
-        # rows = cursor.fetchall()
-        # for row in cursor.fetchall():
-        #     employees.append({"emp_id": row[0], "first_name": row[1],
-        #                      "last_name": row[2], "pri_skill": row[3], "location": row[4]})
-        # print(records)
-        #print("Total number of rows in table: ", cursor.rowcount)
 
     # except mysql.connector.Error as e:
     except:
         # Roll back in case there is any error
         db_conn.rollback()
         print("Error deleting data from MySQL table")
-    # return render_template('deleteEmp.html', employees=employees, url=url)
     return getEmp2()
 
 
 # route to home
-
-
 @adminBlueprint.route('/home', methods=['GET', 'POST'])
 def index():
     return getEmp()
-    # return render_template("index.html")
 
 
 @adminBlueprint.route("/about", methods=['POST'])
@@ -205,8 +180,7 @@ def AddEmp():
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
-        s3 = boto3.resource('s3', aws_access_key_id='AKIAWRDUM7XHSFQBP7F7',
-                            aws_secret_access_key='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')
+        s3 = boto3.resource('s3')
 
         try:
             print("Data inserted in MySQL RDS... uploading image to S3...")
@@ -258,7 +232,7 @@ def updateSubmitEmp():
     last_name = request.form['last_name']
     pri_skill = request.form['pri_skill']
     location = request.form['location']
-    #emp_image_file = request.files['emp_image_file']
+    emp_image_file = request.files['emp_image_file']
 
     update_sql = "UPDATE employee SET first_name = %s, last_name = %s, pri_skill = %s, location = %s WHERE emp_id = %s"
     sql_update = "UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s WHERE emp_id = %s % (first_name, last_name, pri_skill, location, emp_id)"
