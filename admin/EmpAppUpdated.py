@@ -61,7 +61,7 @@ def getEmp():
 
         for row in cursor.fetchall():
             employees.append({"emp_id": row[0], "first_name": row[1],
-                             "last_name": row[2], "pri_skill": row[3], "location": row[4]})
+                             "last_name": row[2], "pri_skill": row[3], "location": row[4], "img": row[5]})
 
     # except mysql.connector.Error as e:
     except:
@@ -83,7 +83,7 @@ def getEmp1():
 
         for row in cursor.fetchall():
             employees.append({"emp_id": row[0], "first_name": row[1],
-                             "last_name": row[2], "pri_skill": row[3], "location": row[4]})
+                             "last_name": row[2], "pri_skill": row[3], "location": row[4], "img": row[5]})
 
     # except mysql.connector.Error as e:
     except:
@@ -105,7 +105,7 @@ def getEmp2():
         # Extract all rows from a result
         for row in cursor.fetchall():
             employees.append({"emp_id": row[0], "first_name": row[1],
-                             "last_name": row[2], "pri_skill": row[3], "location": row[4]})
+                             "last_name": row[2], "pri_skill": row[3], "location": row[4], "img": row[5]})
         print(employees)
     # except mysql.connector.Error as e:
     except:
@@ -177,15 +177,16 @@ def AddEmp():
         return "Please select a file"
 
     try:
-        insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s)"
-        cursor = db_conn.cursor()
-        cursor.execute(insert_sql, (emp_id, first_name,
-                       last_name, pri_skill, location, emp_image_file))
-        db_conn.commit()
+
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
         s3 = boto3.resource('s3')
+        insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s)"
+        cursor = db_conn.cursor()
+        cursor.execute(insert_sql, (emp_id, first_name,
+                       last_name, pri_skill, location, emp_image_file_name_in_s3))
+        db_conn.commit()
 
         try:
             print("Data inserted in MySQL RDS... uploading image to S3...")
