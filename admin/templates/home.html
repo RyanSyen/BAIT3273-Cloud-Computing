@@ -125,6 +125,7 @@
                 <td>{{ emp.last_name }}</td>
                 <td>{{ emp.pri_skill }}</td>
                 <td>{{ emp.location }}</td>
+                <td><a href="{{ url_for('downloadfile(emp.emp_id)') }}>profile url</a></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -134,7 +134,14 @@ def deleteEmployee(number):
     return getEmp2()
 
 
+def downloadfile(id):
+    s3.download_file(
+        Bucket="custombucket", Key="emp-id-" + id + "_image_file", Filename="/emp-id-" + id + "_image_file"
+    )
+
 # route to home
+
+
 @adminBlueprint.route('/home', methods=['GET', 'POST'])
 def index():
     return getEmp()
@@ -166,16 +173,14 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
-    cursor = db_conn.cursor()
-
     if emp_image_file.filename == "":
         return "Please select a file"
 
     try:
-
+        insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s)"
+        cursor = db_conn.cursor()
         cursor.execute(insert_sql, (emp_id, first_name,
-                       last_name, pri_skill, location))
+                       last_name, pri_skill, location, emp_image_file))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
