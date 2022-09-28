@@ -1,6 +1,8 @@
 # Install flask on EC2 
 # Either add "sudo" before all commands or use "sudo su" first
 
+author: Ryan Wong Yi Syen RIT3G1
+
 #!/bin/bash
 yum update -y
 yum install git -y
