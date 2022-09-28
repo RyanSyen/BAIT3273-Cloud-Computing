@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('admin.static',filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles.css') }}">
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/1646/1646604.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -184,7 +184,7 @@
 
 <body>
     <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <a class="navbar-brand navbar-logo" href="{{ url_for('admin.index') }}">
+        <a class="navbar-brand navbar-logo" href="{{ url_for('index1') }}">
             <img class="logo-img" src="https://cdn-icons-png.flaticon.com/512/1390/1390294.png" alt="Logo">
             HR Management System
         </a>
@@ -199,41 +199,41 @@
                     <div class="right"></div>
                 </div>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.index') }}">
+                    <a class="nav-link" href="{{ url_for('index1') }}">
                         <i class="fa-solid fa-house"></i>
                         &nbsp;
                         Home
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.portfolio') }}">
+                    <a class="nav-link" href="{{ url_for('portfolio') }}">
                         <i class="fa-solid fa-address-card"></i>
                         &nbsp;
                         Portfolio
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.addemp') }}">
+                    <a class="nav-link" href="{{ url_for('addemp') }}">
                         <i class="fa-solid fa-user-plus"></i>
                         &nbsp;
                         Add Employees
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.updateEmp') }}">
+                    <a class="nav-link" href="{{ url_for('updateEmp') }}">
                         <i class="fa-solid fa-pen"></i>
                         &nbsp;
                         Update Employee
                         Details</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.deleteEmp') }}">
+                    <a class="nav-link" href="{{ url_for('deleteEmp') }}">
                         <i class="fa-solid fa-trash"></i>
                         &nbsp;
                         Delete Employee</a>
                 </li>
                 <!-- <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.account') }}">
+                    <a class="nav-link" href="{{ url_for('account') }}">
                         <i class="fa-solid fa-user"></i>
                         &nbsp;
                         Account</a>
@@ -252,7 +252,7 @@
     <div class="portfolio">
         <div class="card">
             <div class="img infos">
-                <img src="{{ url_for('admin.static',filename='assets/profile1.jpg') }}">
+                <img src="{{ url_for('static',filename='assets/profile1.jpg') }}">
             </div>
             <div class="infos">
                 <div class="name">
@@ -267,20 +267,20 @@
                     <li>
 
                         <a class="socials" href="https://www.instagram.com/ryansyenyi/?hl=en" target="_blank">
-                            <img src="{{ url_for('admin.static',filename='assets/instagram.png') }}" alt="instagram">
+                            <img src="{{ url_for('static',filename='assets/instagram.png') }}" alt="instagram">
                         </a>
 
                     </li>
                     <li>
 
                         <a class="socials" href="https://github.com/RyanSyen" target="_blank">
-                            <img src="{{ url_for('admin.static',filename='assets/github.png') }}" alt="github">
+                            <img src="{{ url_for('static',filename='assets/github.png') }}" alt="github">
                         </a>
                     </li>
                     <li>
 
                         <a class="socials" href="https://wa.link/lsdp2c" target="_blank">
-                            <img src="{{ url_for('admin.static',filename='assets/whatsapp.png') }}" alt="whatsapp">
+                            <img src="{{ url_for('static',filename='assets/whatsapp.png') }}" alt="whatsapp">
                         </a>
                     </li>
                 </ul>
@@ -309,20 +309,20 @@
                     <li>
 
                         <a class="socials" href="https://www.instagram.com/ryansyenyi/?hl=en" target="_blank">
-                            <img src="{{ url_for('admin.static',filename='assets/instagram.png') }}" alt="instagram">
+                            <img src="{{ url_for('static',filename='assets/instagram.png') }}" alt="instagram">
                         </a>
 
                     </li>
                     <li>
 
                         <a class="socials" href="https://github.com/RyanSyen" target="_blank">
-                            <img src="{{ url_for('admin.static',filename='assets/github.png') }}" alt="github">
+                            <img src="{{ url_for('static',filename='assets/github.png') }}" alt="github">
                         </a>
                     </li>
                     <li>
 
                         <a class="socials" href="https://wa.link/lsdp2c" target="_blank">
-                            <img src="{{ url_for('admin.static',filename='assets/whatsapp.png') }}" alt="whatsapp">
+                            <img src="{{ url_for('static',filename='assets/whatsapp.png') }}" alt="whatsapp">
                         </a>
                     </li>
                 </ul>
@@ -351,20 +351,20 @@
                     <li>
 
                         <a class="socials" href="/" target="_blank">
-                            <img src="{{ url_for('admin.static',filename='assets/instagram.png') }}" alt="instagram">
+                            <img src="{{ url_for('static',filename='assets/instagram.png') }}" alt="instagram">
                         </a>
 
                     </li>
                     <li>
 
                         <a class="socials" href="/" target="_blank">
-                            <img src="{{ url_for('admin.static',filename='assets/github.png') }}" alt="github">
+                            <img src="{{ url_for('static',filename='assets/github.png') }}" alt="github">
                         </a>
                     </li>
                     <li>
 
                         <a class="socials" href="/" target="_blank">
-                            <img src="{{ url_for('admin.static',filename='assets/whatsapp.png') }}" alt="whatsapp">
+                            <img src="{{ url_for('static',filename='assets/whatsapp.png') }}" alt="whatsapp">
                         </a>
                     </li>
                 </ul>
@@ -388,7 +388,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    <script src="{{ url_for('admin.static',filename='footer.js') }}"></script>
+    <script src="{{ url_for('static',filename='footer.js') }}"></script>
 </body>
 <footer>
     <div class="footer footer-copyright text-center py-3">&copy; Copyright 2022

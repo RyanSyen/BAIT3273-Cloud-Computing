@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('admin.static',filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles.css') }}">
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/1646/1646604.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -16,12 +16,19 @@
 
     <title>HR Management Software</title>
 
+    <style>
+        .table {
+            max-width: 1000px;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+        }
+    </style>
 
 </head>
 
 <body>
     <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <a class="navbar-brand navbar-logo" href="{{ url_for('admin.index') }}">
+        <a class="navbar-brand navbar-logo" href="{{ url_for('index1') }}">
             <img class="logo-img" src="https://cdn-icons-png.flaticon.com/512/1390/1390294.png" alt="Logo">
             HR Management System
         </a>
@@ -35,36 +42,36 @@
                     <div class="left"></div>
                     <div class="right"></div>
                 </div>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ url_for('admin.index') }}">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index1') }}">
                         <i class="fa-solid fa-house"></i>
                         &nbsp;
                         Home
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.portfolio') }}">
+                    <a class="nav-link" href="{{ url_for('portfolio') }}">
                         <i class="fa-solid fa-address-card"></i>
                         &nbsp;
                         Portfolio
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.addemp') }}">
+                    <a class="nav-link" href="{{ url_for('addemp') }}">
                         <i class="fa-solid fa-user-plus"></i>
                         &nbsp;
                         Add Employees
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.updateEmp') }}">
+                    <a class="nav-link" href="{{ url_for('updateEmp') }}">
                         <i class="fa-solid fa-pen"></i>
                         &nbsp;
                         Update Employee
                         Details</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.deleteEmp') }}">
+                    <a class="nav-link" href="{{ url_for('deleteEmp') }}">
                         <i class="fa-solid fa-trash"></i>
                         &nbsp;
                         Delete Employee</a>
@@ -84,47 +91,46 @@
             </ul>
         </div>
     </nav>
-    <h1 style="text-align: center; margin: 10px 0; font-weight: bold;">Update Employee Details</h1>
+    <h1 style="text-align: center; margin: 10px 0; font-weight: bold;">Employee Records</h1>
 
-    <center>
-        <font color="black" size="4" style="font-family: avenir">
+    {% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
 
-            <h1 style="color: DodgerBlue">Employee Database</h1>
+        {% block page_content %}{% endblock %}
+    </div>
+    {% endblock %}
 
-            <body bgcolor="lightgrey">
 
-                <form action="updateEmpSubmit" autocomplete="on" method="POST" enctype="multipart/form-data">
-
-                    <!-- <button type="submit" formaction="/getemp" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br> -->
-
-                    Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp_id"
-                        autofocus size="40"><br><br>
-
-                    First Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text"
-                        name="first_name"><br><br>
-
-                    Last Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text"
-                        name="last_name"><br><br>
-
-                    Primary Skills:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text"
-                        name="pri_skill"><br><br>
-
-                    Location:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text"
-                        name="location"><br><br>
-
-                    Image: <input type=file name="emp_image_file" style="height:25px;font-size:14pt;color:grey;">
-                    <br><br>
-
-                    <button type="submit"
-                        style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">UPDATE
-                        DATABASE</button>
-
-                </form>
-                <!-- <a href="/about">About Us</a> -->
-            </body>
-
-        </font>
-    </center>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">emp_id</th>
+                <th scope="col">first_name</th>
+                <th scope="col">last_name</th>
+                <th scope="col">pri_skill</th>
+                <th scope="col">location</th>
+                <th scope="col">Img</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp.emp_id }}</th>
+                <td>{{ emp.first_name }}</td>
+                <td>{{ emp.last_name }}</td>
+                <td>{{ emp.pri_skill }}</td>
+                <td>{{ emp.location }}</td>
+                <td><img style="width:150px; height:150px" src="https://ryanwongyisyen-bucket.s3.amazonaws.com/emp-id-{{emp.emp_id}}_image_file" alt="{{ emp.img }}"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -137,7 +143,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    <script src="{{ url_for('admin.static',filename='footer.js') }}"></script>
+    <script src="{{ url_for('static',filename='footer.js') }}"></script>
 </body>
 <footer>
     <div class="footer footer-copyright text-center py-3">&copy; Copyright 2022
