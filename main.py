@@ -10,7 +10,7 @@ import mysql.connector
 
 app = Fapp = Flask(__name__)
 #app.register_blueprint(adminBlueprint, url_prefix="/admin")
-#app.secret_key = "abc"
+app.secret_key = "abc"
 
 bucket = custombucket
 region = customregion
