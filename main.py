@@ -1,3 +1,5 @@
+# author: Ryan Wong Yi Syen RIT3G1
+
 from flask import Flask, render_template, request, url_for, redirect, flash
 from admin.EmpAppUpdated import adminBlueprint
 
